@@ -114,22 +114,9 @@ trtexec --onnx=yolov10n/s/m/b/l/x.onnx --saveEngine=yolov10n/s/m/b/l/x.engine --
 yolo predict model=yolov10n/s/m/b/l/x.engine
 ```
 
-## Acknowledgement
 
-The code base is built with [ultralytics](https://github.com/ultralytics/ultralytics) and [RT-DETR](https://github.com/lyuwenyu/RT-DETR).
-
-Thanks for the great implementations! 
 
 ## Citation
 
-If our code or models help your work, please cite our paper:
-```BibTeX
-@misc{wang2024yolov10,
-      title={YOLOv10: Real-Time End-to-End Object Detection}, 
-      author={Ao Wang and Hui Chen and Lihao Liu and Kai Chen and Zijia Lin and Jungong Han and Guiguang Ding},
-      year={2024},
-      eprint={2405.14458},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
-}
-```
+If our code or models help your work, please cite our work!
+
