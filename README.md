@@ -1,4 +1,4 @@
-# [TensorRT YOLOv10: Real-Time End-to-End Object Detection](https://arxiv.org/abs/2405.14458)
+# [YOLOv10 C++ TensorRT: Real-Time End-to-End Object Detection](https://arxiv.org/abs/2405.14458)
 
 
 TensorRT implementation of **YOLOv10**.
