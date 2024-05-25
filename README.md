@@ -1,7 +1,9 @@
-# [YOLOv10: Real-Time End-to-End Object Detection](https://arxiv.org/abs/2405.14458)
+# [YOLOv10 C++ TensorRT: Real-Time End-to-End Object Detection](https://arxiv.org/abs/2405.14458)
 
 
-Official PyTorch implementation of **YOLOv10**.
+TensorRT implementation of **YOLOv10**.
+YOLOv10, built on the Ultralytics Python package by researchers at Tsinghua University, introduces a new approach to real-time object detection, addressing both the post-processing and model architecture deficiencies found in previous YOLO versions. By eliminating non-maximum suppression (NMS) and optimizing various model components, YOLOv10 achieves state-of-the-art performance with significantly reduced computational overhead. Extensive experiments demonstrate its superior accuracy-latency trade-offs across multiple model scales.
+
 
 <p align="center">
   <img src="figures/latency.svg" width=48%>
@@ -9,9 +11,6 @@ Official PyTorch implementation of **YOLOv10**.
   Comparisons with others in terms of latency-accuracy (left) and size-accuracy (right) trade-offs.
 </p>
 
-[YOLOv10: Real-Time End-to-End Object Detection](https://arxiv.org/abs/2405.14458).\
-Ao Wang, Hui Chen, Lihao Liu, Kai Chen, Zijia Lin, Jungong Han, and Guiguang Ding\
-[[`arXiv`](https://arxiv.org/abs/2405.14458)] [[`colab`](https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/train-yolov10-object-detection-on-custom-dataset.ipynb#scrollTo=SaKTSzSWnG7s)] [[`Huggingface demo`](https://huggingface.co/spaces/kadirnar/Yolov10)] [[`Transformers.js demo`](https://huggingface.co/spaces/Xenova/yolov10-web)]
 
 <details>
   <summary>
@@ -21,8 +20,48 @@ Over the past years, YOLOs have emerged as the predominant paradigm in the field
 </details>
 
 **UPDATES** 🔥
-- 2024/05/25: Add [Transformers.js demo](https://huggingface.co/spaces/Xenova/yolov10-web) and onnx weights(yolov10[n](https://huggingface.co/onnx-community/yolov10n)/[s](https://huggingface.co/onnx-community/yolov10s)/[m](https://huggingface.co/onnx-community/yolov10m)/[b](https://huggingface.co/onnx-community/yolov10b)/[l](https://huggingface.co/onnx-community/yolov10l)/[x](https://huggingface.co/onnx-community/yolov10x)). Thanks to [xenova](https://github.com/xenova)!
-- 2024/05/25: Add [colab demo](https://colab.research.google.com/github/roboflow-ai/notebooks/blob/main/notebooks/train-yolov10-object-detection-on-custom-dataset.ipynb#scrollTo=SaKTSzSWnG7s), [HuggingFace Demo](https://huggingface.co/spaces/kadirnar/Yolov10), and [HuggingFace Model Page](https://huggingface.co/kadirnar/Yolov10). Thanks to [SkalskiP](https://github.com/SkalskiP) and [kadirnar](https://github.com/kadirnar)! 
+Compared to other state-of-the-art detectors:
+
+YOLOv10-S / X are 1.8× / 1.3× faster than RT-DETR-R18 / R101 with similar accuracy
+YOLOv10-B has 25% fewer parameters and 46% lower latency than YOLOv9-C at same accuracy
+YOLOv10-L / X outperform YOLOv8-L / X by 0.3 AP / 0.5 AP with 1.8× / 2.3× fewer parameters
+Here is a detailed comparison of YOLOv10 variants with other state-of-the-art models:
+
+Certainly! Here is the formatted text for your GitHub README file:
+
+---
+
+## Model Comparison
+
+Here is a detailed comparison of YOLOv10 variants with other state-of-the-art models:
+
+| Model         | Params (M) | FLOPs (G) | APval (%) | Latency (ms) | Latency (Forward) (ms) |
+|---------------|------------|-----------|-----------|--------------|-----------------------|
+| YOLOv6-3.0-N  | 4.7        | 11.4      | 37.0      | 2.69         | 1.76                  |
+| Gold-YOLO-N   | 5.6        | 12.1      | 39.6      | 2.92         | 1.82                  |
+| YOLOv8-N      | 3.2        | 8.7       | 37.3      | 6.16         | 1.77                  |
+| YOLOv10-N     | 2.3        | 6.7       | 39.5      | 1.84         | 1.79                  |
+| YOLOv6-3.0-S  | 18.5       | 45.3      | 44.3      | 3.42         | 2.35                  |
+| Gold-YOLO-S   | 21.5       | 46.0      | 45.4      | 3.82         | 2.73                  |
+| YOLOv8-S      | 11.2       | 28.6      | 44.9      | 7.07         | 2.33                  |
+| YOLOv10-S     | 7.2        | 21.6      | 46.8      | 2.49         | 2.39                  |
+| RT-DETR-R18   | 20.0       | 60.0      | 46.5      | 4.58         | 4.49                  |
+| YOLOv6-3.0-M  | 34.9       | 85.8      | 49.1      | 5.63         | 4.56                  |
+| Gold-YOLO-M   | 41.3       | 87.5      | 49.8      | 6.38         | 5.45                  |
+| YOLOv8-M      | 25.9       | 78.9      | 50.6      | 9.50         | 5.09                  |
+| YOLOv10-M     | 15.4       | 59.1      | 51.3      | 4.74         | 4.63                  |
+| YOLOv6-3.0-L  | 59.6       | 150.7     | 51.8      | 9.02         | 7.90                  |
+| Gold-YOLO-L   | 75.1       | 151.7     | 51.8      | 10.65        | 9.78                  |
+| YOLOv8-L      | 43.7       | 165.2     | 52.9      | 12.39        | 8.06                  |
+| RT-DETR-R50   | 42.0       | 136.0     | 53.1      | 9.20         | 9.07                  |
+| YOLOv10-L     | 24.4       | 120.3     | 53.4      | 7.28         | 7.21                  |
+| YOLOv8-X      | 68.2       | 257.8     | 53.9      | 16.86        | 12.83                 |
+| RT-DETR-R101  | 76.0       | 259.0     | 54.3      | 13.71        | 13.58                 |
+| YOLOv10-X     | 29.5       | 160.4     | 54.4      | 10.70        | 10.60                 |
+
+---
+
+You can copy and paste this Markdown table into your README file on GitHub.
 
 ## Performance
 COCO
@@ -75,22 +114,9 @@ trtexec --onnx=yolov10n/s/m/b/l/x.onnx --saveEngine=yolov10n/s/m/b/l/x.engine --
 yolo predict model=yolov10n/s/m/b/l/x.engine
 ```
 
-## Acknowledgement
 
-The code base is built with [ultralytics](https://github.com/ultralytics/ultralytics) and [RT-DETR](https://github.com/lyuwenyu/RT-DETR).
-
-Thanks for the great implementations! 
 
 ## Citation
 
-If our code or models help your work, please cite our paper:
-```BibTeX
-@misc{wang2024yolov10,
-      title={YOLOv10: Real-Time End-to-End Object Detection}, 
-      author={Ao Wang and Hui Chen and Lihao Liu and Kai Chen and Zijia Lin and Jungong Han and Guiguang Ding},
-      year={2024},
-      eprint={2405.14458},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
-}
-```
+If our code or models help your work, please cite our work!
+
