@@ -11,7 +11,7 @@ class YOLOv10DetectionPredictor(DetectionPredictor):
 
         if isinstance(preds, (list, tuple)):
             preds = preds[0]
-        
+
         if preds.shape[-1] == 6:
             pass
         else:
@@ -21,10 +21,10 @@ class YOLOv10DetectionPredictor(DetectionPredictor):
             preds = torch.cat([bboxes, scores.unsqueeze(-1), labels.unsqueeze(-1)], dim=-1)
 
         mask = preds[..., 4] > self.args.conf
-
-        b, _, c = preds.shape
-        preds = preds.view(-1, preds.shape[-1])[mask.view(-1)]
-        preds = preds.view(b, -1, c)
+        if self.args.classes is not None:
+            mask = mask & (preds[..., 5:6] == torch.tensor(self.args.classes, device=preds.device).unsqueeze(0)).any(2)
+        
+        preds = [p[mask[idx]] for idx, p in enumerate(preds)]
 
         if not isinstance(orig_imgs, list):  # input images are a torch.Tensor, not a list
             orig_imgs = ops.convert_torch2numpy_batch(orig_imgs)
