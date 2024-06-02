@@ -1,5 +1,3 @@
-# Ackownledgement: https://huggingface.co/spaces/kadirnar/Yolov10/blob/main/app.py
-# Thanks to @kadirnar
 
 import gradio as gr
 from ultralytics import YOLOv10 
