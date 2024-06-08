@@ -1,12 +1,14 @@
 # Ultralytics YOLO 🚀, AGPL-3.0 license
 
 import contextlib
+import os
 import shutil
 import subprocess
 import sys
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Dict, List, Union
+import re
 
 from ultralytics.utils import (
     ASSETS,
@@ -550,14 +552,19 @@ def entrypoint(debug=""):
         from ultralytics import SAM
 
         model = SAM(model)
-    elif "yolov10" in stem:
-        from ultralytics import YOLOv10
-
-        model = YOLOv10(model)
-    else:
+    elif re.search("v3|v5|v6|v8|v9", stem):
         from ultralytics import YOLO
 
         model = YOLO(model, task=task)
+    else:
+        from ultralytics import YOLOv10
+
+        # Special case for the HuggingFace Hub
+        split_path = model.split('/')
+        if len(split_path) == 2 and (not os.path.exists(model)):
+            model = YOLOv10.from_pretrained(model)
+        else:
+            model = YOLOv10(model)
     if isinstance(overrides.get("pretrained"), str):
         model.load(overrides["pretrained"])
 
