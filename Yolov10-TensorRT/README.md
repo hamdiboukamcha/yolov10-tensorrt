@@ -1,8 +1,16 @@
-# YOLOv10 TensorRT Project
+# YOLOv10 TensorRT C++
 
 ## Overview
 
-The YOLOv10 TensorRT Project provides an efficient way to perform object detection using the YOLOv10 model with NVIDIA TensorRT for optimized inference. This project supports running inference on videos and images and converting ONNX models to TensorRT engine files.
+The **YOLOv10 TensorRT Project** is a high-performance object detection solution implemented in **C++** and optimized using **NVIDIA TensorRT**. This project leverages the YOLOv10 model to deliver fast and accurate object detection, utilizing TensorRT to maximize inference efficiency and performance. 
+
+### Key Features:
+
+- **Model Conversion**: Convert ONNX models to TensorRT engine files to accelerate inference.
+- **Inference on Videos**: Efficiently perform object detection on video files.
+- **Inference on Images**: Execute object detection on individual image files.
+
+By combining the advanced capabilities of YOLOv10 with TensorRT’s powerful optimization, this project provides a robust and scalable solution for real-time object detection tasks.
 
 ## Table of Contents
 
@@ -15,7 +23,6 @@ The YOLOv10 TensorRT Project provides an efficient way to perform object detecti
   - [Run Inference on Image](#run-inference-on-image)
 - [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
-- [License](#license)
 
 ## Project Structure
 YOLOv10-TensorRT/
@@ -35,53 +42,60 @@ YOLOv10-TensorRT/
 └── README.md
 ## Dependencies
 
-- **OpenCV**: For image and video processing.
-- **CUDA**: For GPU acceleration.
-- **TensorRT**: For optimized inference with YOLOv10.
-- **ONNX Runtime**: For model conversion.
+- **OpenCV V4.10.0**: For image and video processing.
+- **CUDA V11.7**: For GPU acceleration.
+- **TensorRT V8.6.1.6**: For optimized inference with YOLOv10.
+- **cuDNN V9.2.1**: For accelerating deep learning training and inference on NVIDIA GPUs. 
 
 ## Installation
 
 ### 1. Install Dependencies
 
 - **OpenCV**: Follow the instructions on the [OpenCV official website](https://opencv.org/) to install OpenCV.
-- **CUDA**: Install CUDA from the [NVIDIA website](https://developer.nvidia.com/cuda-toolkit).
+- **CUDA & cuDNN**: Install CUDA & cuDNN from the [NVIDIA website](https://developer.nvidia.com/cuda-toolkit).
 - **TensorRT**: Download and install TensorRT from the [NVIDIA Developer website](https://developer.nvidia.com/tensorrt).
-- **ONNX Runtime**: Install ONNX Runtime from [ONNX Runtime GitHub](https://github.com/microsoft/onnxruntime).
 
 ### 2. Clone the Repository
 
 
-git clone [https://github.com/yourusername/YOLOv10-TensorRT.git](https://github.com/hamdiboukamcha/yolov10-tensorrt.git)
+git clone [https://github.com/hamdiboukamcha/yolov10-tensorrt.git](https://github.com/hamdiboukamcha/yolov10-tensorrt.git)
+
 cd yolov10-tensorrt/Yolov10-TensorRT
 
-mkdir build
-cd build
-cmake ..
-cmake --build .
+      mkdir build
+      cd build
+      cmake ..
+      cmake --build .
+
 ## Usage
 
 ### Convert ONNX Model to TensorRT Engine
 
 To convert an ONNX model to a TensorRT engine file, use the following command:
 
-./YOLOv10Project convert path_to_your_model.onnx path_to_your_engine.engine
-
+    ./YOLOv10Project convert path_to_your_model.onnx path_to_your_engine.engine.
+        
 path_to_your_model.onnx: Path to the ONNX model file.
+
 path_to_your_engine.engine: Path where the TensorRT engine file will be saved.
 
 ### Run Inference on Video
 To run inference on a video, use the following command:
-./YOLOv10Project infer_video path_to_your_video.mp4 path_to_your_engine.engine
+
+    ./YOLOv10Project infer_video path_to_your_video.mp4 path_to_your_engine.engine
 
 path_to_your_video.mp4: Path to the input video file.
+
 path_to_your_engine.engine: Path to the TensorRT engine file.
 
 ### Run Inference on Video
 Run Inference on Image
 To run inference on an image, use the following command:
-./YOLOv10Project infer_image path_to_your_image.jpg path_to_your_engine.engine
+
+    ./YOLOv10Project infer_image path_to_your_image.jpg path_to_your_engine.engine
+    
 path_to_your_image.jpg: Path to the input image file.
+
 path_to_your_engine.engine: Path to the TensorRT engine file.
 
 ## Configuration
@@ -90,7 +104,9 @@ path_to_your_engine.engine: Path to the TensorRT engine file.
 In the CMakeLists.txt, update the paths for TensorRT and OpenCV if they are installed in non-default locations:
 
 #### Set the path to TensorRT installation
-set(TENSORRT_PATH "path/to/TensorRT")  # Update this to the actual path
+
+    set(TENSORRT_PATH "path/to/TensorRT")  # Update this to the actual path
+    
 Ensure that the path points to the directory where TensorRT is installed.
 
 ### Troubleshooting
