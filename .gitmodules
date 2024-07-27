@@ -1,0 +1,3 @@
+[submodule "Yolo-V10-cpp-TensorRT"]
+	path = Yolo-V10-cpp-TensorRT
+	url = https://github.com/hamdiboukamcha/Yolo-V10-cpp-TensorRT.git
